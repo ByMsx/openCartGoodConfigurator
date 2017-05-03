@@ -13,6 +13,13 @@ var opencartConfiguratorApp = angular.module('opencartConfigurator', [ "ngRoute"
 
 opencartConfiguratorApp.controller('mainController', function ($scope, $location, $templateCache, $routeParams, selectionService) {
     $scope.next = function () {
-        $location.path('/stepProducts/' + selectionService.nextCategoryId());
+        var nextId = selectionService.nextCategoryId();
+        if (nextId >= 0) {
+            $location.path('/stepProducts/' + nextId);
+        } else if (nextId == -1) {
+            console.dir(selectionService.getSelectedProducts());
+        } else if (nextId == -2) {
+            // не выбрано ни одной категории
+        }
     };
 });

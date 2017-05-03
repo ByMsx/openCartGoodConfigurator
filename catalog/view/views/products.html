@@ -2,7 +2,7 @@
 <h1>Выбор товара для категории {{categoryName}}</h1>
 <form>
 	<div ng-repeat="(key,prod) in products">
-		<input type="radio" name="option">
+		<input type="radio" name="option" ng-click="selectProduct(prod.product_id)">
 		<span>{{prod.name}}</span>
 	</div>
 </form>

@@ -1,6 +1,6 @@
+var categories;
 opencartConfiguratorApp.factory('dataService', function ($http, $q) {
     return {
-        categories: null,
         getCategories: function () {
             var deferred = $q.defer();
 
@@ -27,7 +27,14 @@ opencartConfiguratorApp.factory('dataService', function ($http, $q) {
             return deferred.promise;
         },
         getCategoryName: function (category) {
-            return categories[category].name;
+            var catId;
+            for (var i = 0; i < categories.length; i++) {
+                if (categories[i].category_id == category) {
+                    catId = i;
+                    break;
+                }
+            }
+            return categories[catId].name;
         }
     };
 });
