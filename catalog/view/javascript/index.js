@@ -11,9 +11,11 @@ var opencartConfiguratorApp = angular.module('opencartConfigurator', [ "ngRoute"
         $routeProvider.otherwise({redirectTo: '/stepCat'});
     });
 
-opencartConfiguratorApp.controller('mainController', function ($scope, $location, $templateCache, $routeParams, selectionService) {
+opencartConfiguratorApp.controller('mainController', function ($scope, $location, $templateCache, $routeParams, selectionService, nativeOpenCartService) {
     $scope.next = function () {
+        nativeOpenCartService.addToCart(selectionService.getLastSelectedProduct());
         var nextId = selectionService.nextCategoryId();
+
         if (nextId >= 0) {
             $location.path('/stepProducts/' + nextId);
         } else if (nextId == -1) {

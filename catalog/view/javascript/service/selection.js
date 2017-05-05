@@ -1,4 +1,4 @@
-opencartConfiguratorApp.factory('selectionService', function ($http, $q) {
+opencartConfiguratorApp.factory('selectionService', function () {
     return {
     	selectedCats: [],
     	selectedProducts: {},
@@ -26,6 +26,9 @@ opencartConfiguratorApp.factory('selectionService', function ($http, $q) {
     	getSelectedProducts: function () {
     		return this.selectedProducts;
     	},
+		getLastSelectedProduct: function () {
+            return this.selectedProducts[this.currentCategory];
+        },
     	nextCategoryId: function () {
     		if (this.selectedCats.length == 0) {
     			return -2;
