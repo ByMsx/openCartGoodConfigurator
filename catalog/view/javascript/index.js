@@ -18,25 +18,25 @@ opencartConfiguratorApp.controller('mainController', function ($scope, $location
         if (nextId >= 0) {
             $location.path('/stepProducts/' + nextId);
         } else if (nextId == -1) {
-            var selected = selectionService.getSelectedProducts();
-            var lastPromise;
-            angular.forEach(selected, function (val) {
-                var tmpPromise;
-
-                if (lastPromise) {
-                    lastPromise.then(function () {
-                        tmpPromise = nativeOpenCartService.addToCart(val);
-                    });
-
-                    lastPromise = tmpPromise;
-                } else {
-                    lastPromise = nativeOpenCartService.addToCart(val);
-                }
-            });
-
-            lastPromise.then(function () {
-                window.location.href = '/index.php?route=checkout/cart';
-            });
+            //var selected = selectionService.getSelectedProducts();
+            //var lastPromise;
+            //angular.forEach(selected, function (val) {
+            //    var tmpPromise;
+            //
+            //    if (lastPromise) {
+            //        lastPromise.then(function () {
+            //            tmpPromise = nativeOpenCartService.addToCart(val);
+            //        });
+            //
+            //        lastPromise = tmpPromise;
+            //    } else {
+            //        lastPromise = nativeOpenCartService.addToCart(val);
+            //    }
+            //});
+            //
+            //lastPromise.then(function () {
+            window.location.href = '/index.php?route=checkout/cart';
+            //});
 
         } else if (nextId == -2) {
             // не выбрано ни одной категории
@@ -44,19 +44,19 @@ opencartConfiguratorApp.controller('mainController', function ($scope, $location
     }
 
     $scope.next = function () {
-        //var lastProd = selectionService.getLastSelectedProduct();
-        //if (lastProd) {
-        //    nativeOpenCartService.addToCart(lastProd).then(function (isAdded) {
-        //        console.dir(isAdded);
-        //        if (isAdded) {
-        //            nextTab();
-        //        } else {
-        //            alert("Ошибка добавления товара в корзину.");
-        //        }
-        //    });
-        //} else {
-        //    nextTab();
-        //}
-        nextTab();
+        var lastProd = selectionService.getLastSelectedProduct();
+        if (lastProd) {
+            nativeOpenCartService.addToCart(lastProd).then(function (isAdded) {
+                console.dir(isAdded);
+                if (isAdded) {
+                    nextTab();
+                } else {
+                    alert("Ошибка добавления товара в корзину.");
+                }
+            });
+        } else {
+            nextTab();
+        }
+        //nextTab();
     };
 });
