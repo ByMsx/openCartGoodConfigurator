@@ -1,8 +1,8 @@
 opencartConfiguratorApp.factory('selectionService', function () {
+    var selectedProducts = {};
     return {
     	selectedCats: [],
-    	selectedProducts: {},
-    	currentCategory: 0,
+    	currentCategory: -1,
     	selectCategory: function (category, sel) {
     		if (sel) {
     			for (var i = 0; i < this.selectedCats.length; i++) {
@@ -21,22 +21,25 @@ opencartConfiguratorApp.factory('selectionService', function () {
     		}
     	},
     	selectProduct: function (cat, prod) {
-    		this.selectedProducts[cat] = prod;
+    		selectedProducts[cat] = prod;
+            console.log("Select: ", selectedProducts[cat]);
     	},
     	getSelectedProducts: function () {
-    		return this.selectedProducts;
+    		return selectedProducts;
     	},
 		getLastSelectedProduct: function () {
-            return this.selectedProducts[this.currentCategory];
+            return selectedProducts[this.selectedCats[this.currentCategory]];
         },
     	nextCategoryId: function () {
+            ++this.currentCategory;
+
     		if (this.selectedCats.length == 0) {
     			return -2;
     		}
-    		if (this.currentCategory + 1 > this.selectedCats.length) {
+    		if (this.currentCategory == this.selectedCats.length) {
     			return -1;
     		}
-    		return this.selectedCats[this.currentCategory++];
+    		return this.selectedCats[this.currentCategory];
     	}
     };
 });

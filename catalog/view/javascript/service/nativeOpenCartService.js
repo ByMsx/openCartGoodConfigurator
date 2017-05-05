@@ -3,20 +3,27 @@ opencartConfiguratorApp.factory('nativeOpenCartService', function ($http, $q) {
         addToCart: function (productId) {
             var deffered = $q.defer();
 
-            $http.post({
-                url: '/index.php?route=checkout/cart/add',
+            $http({
+                url: "/index.php?route=checkout/cart/add",
                 method: "POST",
                 withCredentials: true,
-                data: 'product_id=' + productId + '&quantity=1'
+                headers: {
+                    'Content-type': 'application/x-www-form-urlencoded'
+                },
+                data: "quantity=1&product_id=" + productId
             }).then(function (response) {
+                console.dir(response);
                 if (response.status == 200) {
                     deffered.resolve(true);
                 } else {
                     deffered.resolve(false);
                 }
+            }, function (err) {
+                console.error(err);
+                deffered.resolve(false);
             });
 
-            return deffered;
+            return deffered.promise;
         }
     };
 });
