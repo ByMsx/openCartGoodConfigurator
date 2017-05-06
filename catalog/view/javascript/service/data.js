@@ -4,7 +4,7 @@ opencartConfiguratorApp.factory('dataService', function ($http, $q) {
         getCategories: function () {
             var deferred = $q.defer();
 
-            $http({ method: 'GET', url: '/index.php?route=bymsxmodule/api&category&format=json' })
+            $http({ method: 'GET', url: '/index.php?route=bymsx/configurator/api&category' })
                 .then (function success(response) {
                     categories = response.data;
                     deferred.resolve(response.data);
@@ -17,7 +17,7 @@ opencartConfiguratorApp.factory('dataService', function ($http, $q) {
         },
         getProducts: function (category) {
             var deferred = $q.defer();
-            $http({ method: 'GET', url: '/index.php?route=bymsxmodule/api&format=json&products=' + category })
+            $http({ method: 'GET', url: '/index.php?route=bymsx/configurator/api&products=' + category })
                 .then(function (response) {
                     deferred.resolve(response.data);
                 }, function (response) {
