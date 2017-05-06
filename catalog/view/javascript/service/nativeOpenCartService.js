@@ -12,14 +12,12 @@ opencartConfiguratorApp.factory('nativeOpenCartService', function ($http, $q) {
                 },
                 data: "quantity=1&product_id=" + productId
             }).then(function (response) {
-                console.dir(response);
                 if (response.status == 200) {
                     deffered.resolve(true);
                 } else {
                     deffered.resolve(false);
                 }
-            }, function (err) {
-                console.error(err);
+            }, function () {
                 deffered.resolve(false);
             });
 

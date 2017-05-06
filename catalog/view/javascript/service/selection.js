@@ -22,10 +22,6 @@ opencartConfiguratorApp.factory('selectionService', function () {
     	},
     	selectProduct: function (cat, prod) {
     		selectedProducts[cat] = prod;
-            console.log("Select: ", selectedProducts[cat]);
-    	},
-    	getSelectedProducts: function () {
-    		return selectedProducts;
     	},
 		getLastSelectedProduct: function () {
             return selectedProducts[this.selectedCats[this.currentCategory]];

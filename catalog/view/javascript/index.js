@@ -28,7 +28,6 @@ opencartConfiguratorApp.controller('mainController', function ($scope, $location
         var lastProd = selectionService.getLastSelectedProduct();
         if (lastProd) {
             nativeOpenCartService.addToCart(lastProd).then(function (isAdded) {
-                console.dir(isAdded);
                 if (isAdded) {
                     nextTab();
                 } else {
