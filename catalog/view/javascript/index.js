@@ -1,11 +1,11 @@
 var opencartConfiguratorApp = angular.module('opencartConfigurator', [ "ngRoute" ])
     .config(function ($routeProvider) {
         $routeProvider.when('/stepCat', {
-            templateUrl: '/catalog/view/views/category.html',
+            templateUrl: '/index.php?route=bymsx/configurator/view&path=category',
             controller: 'categoryController'
         });
         $routeProvider.when('/stepProducts/:category', {
-            templateUrl: '/catalog/view/views/products.html',
+            templateUrl: '/index.php?route=bymsx/configurator/view&path=products',
             controller: 'productsController'
         });
         $routeProvider.otherwise({redirectTo: '/stepCat'});
@@ -38,4 +38,14 @@ opencartConfiguratorApp.controller('mainController', function ($scope, $location
             nextTab();
         }
     };
+
+    $scope.loading = false;
+
+    $scope.$on("$routeChangeSuccess", function () {
+        $scope.loading = false;
+    });
+
+    $scope.$on("$routeChangeStart", function () {
+        $scope.loading = true;
+    });
 });

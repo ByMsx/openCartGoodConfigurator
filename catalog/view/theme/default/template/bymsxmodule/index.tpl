@@ -1,21 +1,17 @@
-<!DOCTYPE html>
-<html lang="ru" ng-app="opencartConfigurator">
-<head>
-    <meta charset="UTF-8">
-    <title>Конфигуратор</title>
-
-    <script src="/catalog/view/javascript/angular.min.js"></script>
-    <script src="/catalog/view/javascript/angular-route.js"></script>
-    <script src="/catalog/view/javascript/index.js"></script>
-    <script src="/catalog/view/javascript/service/nativeOpenCartService.js"></script>
-    <script src="/catalog/view/javascript/service/data.js"></script>
-    <script src="/catalog/view/javascript/service/selection.js"></script>
-    <script src="/catalog/view/javascript/controller/category.js"></script>
-    <script src="/catalog/view/javascript/controller/products.js"></script>
-</head>
-<body ng-controller="mainController">
-
-<div ng-view></div>
-<button ng-click="next()">Next >>></button>
-</body>
-</html>
+<?php echo $header; ?>
+<div class="container">
+    <?php echo $content_top; ?>
+    <?php echo $column_left; ?>
+    <div class="row">
+        <div ng-app="opencartConfigurator" ng-controller="mainController" id="configuratorMain">
+            <div id="configuratorBody">
+                <div ng-show="loading" id="loading"><img src="/catalog/view/theme/default/image/ajax-loader.gif"></div>
+                <div ng-view ng-hide="loading" id="configuratorViewBody"></div>
+            </div>
+            <button ng-click="next()"><?php echo $lng_button_next; ?></button>
+        </div>
+    </div>
+    <?php echo $column_right; ?>
+    <?php echo $content_bottom; ?>
+</div>
+<?php echo $footer; ?>
