@@ -18,28 +18,9 @@ opencartConfiguratorApp.controller('mainController', function ($scope, $location
         if (nextId >= 0) {
             $location.path('/stepProducts/' + nextId);
         } else if (nextId == -1) {
-            //var selected = selectionService.getSelectedProducts();
-            //var lastPromise;
-            //angular.forEach(selected, function (val) {
-            //    var tmpPromise;
-            //
-            //    if (lastPromise) {
-            //        lastPromise.then(function () {
-            //            tmpPromise = nativeOpenCartService.addToCart(val);
-            //        });
-            //
-            //        lastPromise = tmpPromise;
-            //    } else {
-            //        lastPromise = nativeOpenCartService.addToCart(val);
-            //    }
-            //});
-            //
-            //lastPromise.then(function () {
             window.location.href = '/index.php?route=checkout/cart';
-            //});
-
         } else if (nextId == -2) {
-            // не выбрано ни одной категории
+            alert("Пожалуйста, выберите интересующие Вас категории товара с помощью флажков!");
         }
     }
 
@@ -57,6 +38,5 @@ opencartConfiguratorApp.controller('mainController', function ($scope, $location
         } else {
             nextTab();
         }
-        //nextTab();
     };
 });
