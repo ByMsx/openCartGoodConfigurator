@@ -28,12 +28,26 @@ class Controllerbymsxconfigurator extends Controller {
 	    $this->response->setOutput($this->load->view("bymsxmodule/index", $data));
 	}
 
+	private function prepareCategory(&$category)
+    {
+        if (is_array($category) && array_key_exists('category_id', $category)) {
+            $category['categories'] = $this->model_catalog_category->getCategories($category['category_id']);
+            foreach ($category['categories'] as $key => &$value) {
+                $this->prepareCategory($value['category_id']);
+            }
+        }
+    }
+
 	public function api() {
 	    $this->load->model('catalog/category');
         $this->load->model('catalog/product');
 
 		if (array_key_exists('category', $this->request->get)) {
             $data['data'] = $this->model_catalog_category->getCategories();
+            foreach ($data['data'] as $key => &$value)
+            {
+                $this->prepareCategory($value);
+            }
         }
 
         if (array_key_exists('products', $this->request->get)) {

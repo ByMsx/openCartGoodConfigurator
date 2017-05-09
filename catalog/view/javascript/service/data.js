@@ -1,4 +1,22 @@
 var categories;
+
+function search(obj, id) {
+    if (obj.categories) {
+        for (var key in obj.categories) {
+            if (obj.categories[key].category_id == id) {
+                return obj.categories[key];
+            }
+
+            var r = search(obj.categories[key], id);
+            if (r) {
+                return r;
+            }
+        }
+    }
+
+    return null;
+}
+
 opencartConfiguratorApp.factory('dataService', function ($http, $q) {
     return {
         getCategories: function () {
@@ -27,14 +45,18 @@ opencartConfiguratorApp.factory('dataService', function ($http, $q) {
             return deferred.promise;
         },
         getCategoryName: function (category) {
-            var catId;
+            var cat;
             for (var i = 0; i < categories.length; i++) {
                 if (categories[i].category_id == category) {
-                    catId = i;
+                    cat = categories[i];
+                    break;
+                }
+
+                if ((cat = search(categories[i], category))) {
                     break;
                 }
             }
-            return categories[catId].name;
+            return cat.name;
         }
     };
 });
