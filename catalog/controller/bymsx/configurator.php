@@ -31,9 +31,12 @@ class Controllerbymsxconfigurator extends Controller {
 	private function prepareCategory(&$category)
     {
         if (is_array($category) && array_key_exists('category_id', $category)) {
-            $category['categories'] = $this->model_catalog_category->getCategories($category['category_id']);
-            foreach ($category['categories'] as $key => &$value) {
-                $this->prepareCategory($value['category_id']);
+            $categories = $this->model_catalog_category->getCategories($category['category_id']);
+            if (count($categories) > 0) {
+                $category['categories'] = $categories;
+                foreach ($category['categories'] as $key => &$value) {
+                    $this->prepareCategory($value['category_id']);
+                }
             }
         }
     }
